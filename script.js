@@ -77,7 +77,6 @@ function listarFuncionarios() {
     };
 }
 
-
 // Função para adicionar um funcionário com feedback visual
 function adicionarFuncionario(funcionario) {
     let db = verificarDB();//chama a função verificar banco de dados
@@ -101,19 +100,19 @@ function adicionarFuncionario(funcionario) {
 
 
 // Função para atualizar um funcionário com feedback visual
-function atualizarFuncionario(id, novosDados) {
+function atualizarFuncionario(id, novosDados) {//o id é pra informar o n° do resgistro do funcionário e o novosDados a para alterar a informação desejada
     let db = verificarDB();
     if (!db) return;
 
     let transaction = db.transaction("funcionarios", "readwrite");
     let store = transaction.objectStore("funcionarios");
 
-    let getRequest = store.get(id);
-    getRequest.onsuccess = function () {
+    let getRequest = store.get(id);//pegar o n° de registro do funcionário
+    getRequest.onsuccess = function () {//obteve sucesso ao achar o id de funcionário
         let funcionario = getRequest.result;
         if (funcionario) {
             Object.assign(funcionario, novosDados); // Atualiza os dados do funcionário
-            let updateRequest = store.put(funcionario);
+            let updateRequest = store.put(funcionario);//alterar dados do funcionário
             updateRequest.onsuccess = function () {
                 console.log("Funcionário atualizado com sucesso!");
                 mostrarFeedback("Dados atualizados com sucesso!", "success"); // Mostra feedback visual
@@ -127,7 +126,7 @@ function atualizarFuncionario(id, novosDados) {
         }
     };
 
-    getRequest.onerror = function (event) {
+    getRequest.onerror = function (event) {//alteração não realizada
         console.error("Erro ao obter funcionário para atualização:", event.target.error);
         mostrarFeedback("Erro ao carregar funcionário para atualização!", "error"); // Feedback visual
     };
@@ -158,13 +157,13 @@ function deletarFuncionario(id) {
 
 
 // Mostrar feedback
-function mostrarFeedback(mensagem, tipo) {
+function mostrarFeedback(mensagem, tipo) {//para mostrar  o cliente de suas ações ao usar o sistema
     let feedback = document.getElementById("feedback-msg");
     feedback.textContent = mensagem;
     feedback.className = `feedback ${tipo}`; // Aplica classe de sucesso ou erro
     feedback.style.display = "block";
 
-    setTimeout(() => {
+    setTimeout(() => {//função de tempo
         feedback.style.display = "none"; // Oculta após 3 segundos
     }, 3000);
 }
