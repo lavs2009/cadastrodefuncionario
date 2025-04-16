@@ -62,9 +62,7 @@ function listarFuncionarios() {
         let cursor = event.target.result;//o cursor aponta para cada registro
         if (cursor) {
             let funcionario = cursor.value;//o cursor busca as informações dos funcionários
-            listaFuncionarios.innerHTML += `<p>ID: ${funcionario.id} - Nome: ${funcionario.nome} - CPF: ${funcionario.cpf}</p> -
-            E-mail:${funcionario.email} - Telefone:${funcionario.telefone} - Data de nascimento:${funcionario.data_nascimento} - 
-            Cargo:${funcionario.cargo}`;
+            listaFuncionarios.innerHTML += `<p>ID: ${funcionario.id} - Nome: ${funcionario.nome} - CPF: ${funcionario.cpf} </p>`;
             cursor.continue();
         } else {
             mostrarFeedback("Lista de funcionários carregada com sucesso!", "success");
